@@ -33,6 +33,7 @@ function setValue(selector, value, {parent = document} = {}){
 }
 
 function renderSunriseSunset(ssdata){
+    console.log(ssdata);
     setValue("day-sunrise", ssdata.data.results.sunrise);
     setValue("day-sunset", ssdata.data.results.sunset);
 }
@@ -46,7 +47,7 @@ function renderCurrentWeather(current){
     let add = 0;
     const DATE = new Date();
     const USER_TIME = DATE.getHours();
-    if((USER_TIME >=21 || USER_TIME <=5) && (hour.iconCode <=3)) add = 1000;
+    if((USER_TIME >=21 || USER_TIME <=5) && (current.iconCode <=3)) add = 1000;
     currentIcon.src = getIconUrl(current.iconCode+add)
     setValue("current-temp", current.currentTemp)
     setValue("current-high", current.highTemp)
