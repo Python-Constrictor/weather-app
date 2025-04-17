@@ -1,6 +1,8 @@
 //git subtree push --prefix dist origin gh-pages
 //git push -u origin main
-
+//git subtree split --prefix dist main -b gh-pages-split
+//git push origin gh-pages-split:gh-pages --force
+//git branch -D gh-pages-split
 import "./style.css"
 import {getweather} from "./weather.js"
 import {ICON_MAP} from "./iconmap.js"
@@ -66,7 +68,6 @@ function renderCurrentWeather(current){
     setValue("current-pressure",current.pressure)
     setValue("current-uv",current.uv)
     const UV = Math.round(current.uv);
-    console.log(UV)
     if(UV>=1 && UV <=2){
         setUVrgb(131,200,139)
     }

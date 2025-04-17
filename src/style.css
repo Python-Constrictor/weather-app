@@ -52,7 +52,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0.5rem;
+  margin: .5rem;
 }
 .header-right {
   display: grid;
@@ -102,8 +102,9 @@ body {
   display:grid;
   grid-template-columns: repeat(auto-fit, 90px);
   gap: .5rem;
-  justify-content: center;
+  justify-content: right;
   padding: 1rem;
+  margin-right:7rem;
 }
 
 .day-card{
