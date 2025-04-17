@@ -33,13 +33,18 @@ function setValue(selector, value, {parent = document} = {}){
 }
 
 function renderSunriseSunset(ssdata){
-    console.log(ssdata);
-    setValue("day-sunrise", ssdata.data.results.sunrise);
-    setValue("day-sunset", ssdata.data.results.sunset);
+    setValue("day-sunrise", ssdata.data.results.sunrise.slice(0,-6) + " " + ssdata.data.results.sunrise.slice(-2));
+    setValue("day-sunset", ssdata.data.results.sunset.slice(0,-6) + " " + ssdata.data.results.sunset.slice(-2));
 }
 
 function getIconUrl(iconcode){
     return `${import.meta.env.BASE_URL}/icons/${ICON_MAP.get(iconcode)}.svg`
+}
+
+function setUVrgb (r,g,b){
+    document.documentElement.style.setProperty('--uvR', r);
+    document.documentElement.style.setProperty('--uvG', g);
+    document.documentElement.style.setProperty('--uvB', b);
 }
 
 const currentIcon = document.querySelector("[data-current-icon]")
@@ -56,7 +61,27 @@ function renderCurrentWeather(current){
     setValue("current-fl-low", current.lowFeelsLike)
     setValue("current-wind", current.windSpeed)
     setValue("current-precipitation", current.precip)
-
+    setValue("current-cloud-cover",current.cloudCover)
+    setValue("current-humidity",current.humidity)
+    setValue("current-pressure",current.pressure)
+    setValue("current-uv",current.uv)
+    const UV = Math.round(current.uv);
+    console.log(UV)
+    if(UV>=1 && UV <=2){
+        setUVrgb(131,200,139)
+    }
+    else if(UV>=3 && UV <=5){
+        setUVrgb(255,220,1)
+    }
+    else if(UV>=6 && UV <=7){
+        setUVrgb(248,156,28)
+    }
+    else if(UV>=8 && UV <=10){
+        setUVrgb(238,29,35)
+    }
+    else{
+        setUVrgb(216,52,132)
+    }
 }
 
 const DAY_FORMATTER = new Intl.DateTimeFormat(undefined, {weekday: "long"})

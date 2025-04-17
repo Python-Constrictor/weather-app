@@ -1,12 +1,9 @@
 import axios from "axios"
 
 export function getweather(lat, lon, timezone){
-    //https://api.open-meteo.com/v1/forecast?daily=weather_code,temperature_2m_max,apparent_temperature_max,precipitation_sum,temperature_2m_min,apparent_temperature_min&hourly=temperature_2m,apparent_temperature,weather_code,precipitation,wind_speed_10m&current_weather=true&timeformat=unixtime&latitude=52.52&longitude=13.41
-    console.log(lat);
-    console.log("asdfd");
-    console.log(lon);
+    //https://api.open-meteo.com/v1/forecast?daily=weather_code,temperature_2m_max,apparent_temperature_max,precipitation_sum,temperature_2m_min,apparent_temperature_min,uv_index_max,relative_humidity_2m_mean,cloud_cover_mean,pressure_msl_mean&hourly=temperature_2m,apparent_temperature,weather_code,precipitation,wind_speed_10m&current_weather=true&timeformat=unixtime&latitude=52.52&longitude=13.41
     return axios.get(
-        "https://api.open-meteo.com/v1/forecast?daily=weather_code,temperature_2m_max,precipitation_sum,apparent_temperature_max,precipitation_sum,temperature_2m_min,apparent_temperature_min&hourly=temperature_2m,apparent_temperature,weather_code,precipitation,wind_speed_10m,precipitation_probability&current_weather=true&timeformat=unixtime", {
+        "https://api.open-meteo.com/v1/forecast?daily=weather_code,temperature_2m_max,precipitation_sum,apparent_temperature_max,precipitation_sum,temperature_2m_min,apparent_temperature_min,uv_index_max,relative_humidity_2m_mean,cloud_cover_mean,pressure_msl_mean&hourly=temperature_2m,apparent_temperature,weather_code,precipitation,wind_speed_10m,precipitation_probability&current_weather=true&timeformat=unixtime", {
             params:{
                 latitude: lat,
                 longitude: lon,
@@ -37,6 +34,10 @@ function parseCurrentWeather({current_weather, daily}){
         apparent_temperature_max: [maxFeelsLike],
         apparent_temperature_min: [minFeelsLike],
         precipitation_sum: [precip],
+        uv_index_max: [uv],
+        cloud_cover_mean: [cloudCover],
+        relative_humidity_2m_mean: [humidity],
+        pressure_msl_mean: [pressure],
     } = daily
     return {
         currentTemp: currentTemp,
@@ -47,6 +48,10 @@ function parseCurrentWeather({current_weather, daily}){
         windSpeed: windSpeed,
         precip: precip,
         iconCode,
+        uv,
+        cloudCover,
+        humidity,
+        pressure
     }
 }
   
